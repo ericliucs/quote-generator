@@ -31,6 +31,10 @@ main {
   box-shadow: 0 8px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
+.quote-container:hover {
+  box-shadow: 0 12px 14px 14px rgba(0, 0, 0, 0.5);
+}
+
 .quote-text {
   font-size: 2.75rem;
 }
@@ -48,6 +52,42 @@ main {
   font-size: 2rem;
   font-weight: 500;
   font-style: italic;
+}
+
+.button-container {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.quote-button {
+  padding: 0.5rem 1.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  background-color: #333333;
+  outline: none;
+  box-shadow: 0 0.3rem rgba(120, 120, 120, 0.5);
+  font-size: 1.2rem;
+}
+
+.quote-button:hover {
+  background-color: #555555;
+}
+
+.quote-button:active {
+  transform: translate(0, 0.3rem);
+  box-shadow: none;
+}
+
+.twitter-button {
+  font-size: 1.3rem;
+}
+
+.twitter-button:hover {
+  background-color: #6cadde;
 }
 
 @media screen and (max-width: 1000px) {

@@ -60,7 +60,7 @@ main {
   justify-content: space-between;
 }
 
-.quote-button {
+.quote-container-button {
   padding: 0.5rem 1.5rem;
   height: 2.5rem;
   cursor: pointer;
@@ -73,11 +73,11 @@ main {
   font-size: 1.2rem;
 }
 
-.quote-button:hover {
+.quote-container-button:hover {
   background-color: #555555;
 }
 
-.quote-button:active {
+.quote-container-button:active {
   transform: translate(0, 0.3rem);
   box-shadow: none;
 }

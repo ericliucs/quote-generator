@@ -1,7 +1,8 @@
+const quoteContainer = document.getElementById("quote-container");
 const quote = document.getElementById("quote");
 const quoteAuthor = document.getElementById("author");
 const twitterButton = document.getElementById("twitter-button");
-const generateQuoteButton = document.getElementById("generate-quote-button")
+const generateQuoteButton = document.getElementById("generate-quote-button");
 
 let quoteObjectsArray = [{
   text: "If you judge people, you have no time to love them.",
@@ -13,11 +14,21 @@ let quoteObjectsArray = [{
   text: "I have learned over the years that when one’s mind is made up, this diminishes fear; knowing what must be" +
     " done does away with fear.",
   author: "Rosa Parks"
+}, {
+  text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+  author: "Nelson Mandela"
+}, {
+  text: "Let the future tell the truth, and evaluate each one according to his work and accomplishments. The present" +
+    " is theirs; the future, for which I have really worked, is mine.",
+  author: "Nikola Tesla"
+}, {
+  text: "What you are is what you have been. What you'll be is what you do now.",
+  author: "Buddha"
 }];
 let currentQuoteIndex = -1;
 
 async function getQuoteObjects() {
-  return fetch("https://type.fit/api/quotes")
+  return fetch("https://jacintodesign.github.io/quotes-api/data/quotes.json")
       .then(function(response) {
         return response.json();
       })
@@ -26,10 +37,11 @@ async function getQuoteObjects() {
       });
 }
 
-function selectNewRandomQuoteAndAuthor(quoteObjectsArray, currentQuoteIndex) {
+function selectNewRandomQuoteAndAuthor() {
   let randomQuoteIndex = Math.floor(Math.random() * quoteObjectsArray.length);
   while (randomQuoteIndex === currentQuoteIndex)
     randomQuoteIndex = Math.floor(Math.random() * quoteObjectsArray.length);
+  currentQuoteIndex = randomQuoteIndex;
 
   let randomQuoteObject = quoteObjectsArray[randomQuoteIndex];
   let randomQuote;
@@ -53,13 +65,17 @@ function applyQuoteAndAuthor(randomQuote, randomAuthor) {
   quoteAuthor.innerText = randomAuthor;
 }
 
+quoteContainer.addEventListener("mouseover", () => {
+
+});
+
 twitterButton.addEventListener("click", () => {
   const currentQuote = quote.innerText;
   const currentQuoteAuthor = quoteAuthor.innerText;
 });
 
 generateQuoteButton.addEventListener("click", () => {
-  let [randomQuote, randomAuthor] = selectNewRandomQuoteAndAuthor(quoteObjectsArray, currentQuoteIndex);
+  let [randomQuote, randomAuthor] = selectNewRandomQuoteAndAuthor();
   applyQuoteAndAuthor(randomQuote, randomAuthor);
 });
 

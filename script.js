@@ -3,6 +3,7 @@ const quote = document.getElementById("quote");
 const quoteAuthor = document.getElementById("author");
 const twitterButton = document.getElementById("twitter-button");
 const generateQuoteButton = document.getElementById("generate-quote-button");
+const loader = document.getElementById("loader");
 
 let quoteObjectsArray = [{
   text: "If you judge people, you have no time to love them.",
@@ -27,7 +28,18 @@ let quoteObjectsArray = [{
 }];
 let currentQuoteIndex = -1;
 
+function showLoader() {
+  loader.style.opacity = "1";
+  quoteContainer.style.opacity = "0";
+}
+
+function hideLoader() {
+  loader.style.opacity = "0";
+  quoteContainer.style.opacity = "1";
+}
+
 async function getQuoteObjects() {
+  showLoader();
   return fetch("https://jacintodesign.github.io/quotes-api/data/quotes.json")
       .then(function(response) {
         return response.json();
@@ -35,6 +47,11 @@ async function getQuoteObjects() {
       .then(function(data) {
         return data;
       });
+}
+
+function tweetQuote() {
+  const twitterURL = `https://twitter.com/intent/tweet?text=${quote.textContent} - ${quoteAuthor.textContent}`;
+  window.open(twitterURL, "_blank");
 }
 
 function selectNewRandomQuoteAndAuthor() {
@@ -57,7 +74,7 @@ function selectNewRandomQuoteAndAuthor() {
 }
 
 function applyQuoteAndAuthor(randomQuote, randomAuthor) {
-  if (randomQuote.length > 70)
+  if (randomQuote.length > 80)
     quote.classList.add("long-quote");
   else
     quote.classList.remove("long-quote");
@@ -65,14 +82,7 @@ function applyQuoteAndAuthor(randomQuote, randomAuthor) {
   quoteAuthor.innerText = randomAuthor;
 }
 
-quoteContainer.addEventListener("mouseover", () => {
-
-});
-
-twitterButton.addEventListener("click", () => {
-  const currentQuote = quote.innerText;
-  const currentQuoteAuthor = quoteAuthor.innerText;
-});
+twitterButton.addEventListener("click", tweetQuote);
 
 generateQuoteButton.addEventListener("click", () => {
   let [randomQuote, randomAuthor] = selectNewRandomQuoteAndAuthor();
@@ -81,4 +91,6 @@ generateQuoteButton.addEventListener("click", () => {
 
 getQuoteObjects().then(data => {
   quoteObjectsArray = [...quoteObjectsArray, ...data];
+  generateQuoteButton.click();
+  hideLoader();
 });
